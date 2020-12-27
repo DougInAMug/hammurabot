@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# post at random times in the day, to diversify exposure
+echo "random sleep for up to 23 hours beginning..."
 sleep $((RANDOM % 23))h
 
+# main
 lastLaw=$(cat lawCounter.log)
 law=$((lastLaw + 1))
 lawText=$(head codeOfHammurabi.txt -n $law | tail -n 1)
@@ -46,10 +49,12 @@ else
   rm lastPost.log
 fi
 
+# increment or reset lawcounter
 if [ "$law" -lt 282 ]; then
   echo "$law" > lawCounter.log
 else
   echo "0" > lawCounter.log
 fi
 
+# log date & time of posts
 date >> posted.log
