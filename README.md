@@ -1,4 +1,4 @@
-# Hammurabot
+# hammurabot
 
 _A [mastodon bot](https://botsin.space/@hammurabot) which sequentially posts the laws from the [Code of Hammurabi](https://en.wikipedia.org/wiki/Code_of_Hammurabi)_
 
