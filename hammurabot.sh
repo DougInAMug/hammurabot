@@ -2,9 +2,9 @@
 
 # post at random times in the day, to diversify exposure
 echo "random sleep for up to 23 hours beginning..."
-sleepTime=$((RANDOM % 23))
+sleepTime="$((RANDOM % 23))h"
 echo $sleepTime >> sleepTime.log
-sleep "$sleepTime"h
+sleep "$sleepTime"
 
 # main
 lastLaw=$(cat lawCounter.log)
