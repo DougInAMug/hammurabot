@@ -3,7 +3,7 @@
 # post at random times in the day, to diversify exposure
 echo "random sleep for up to 23 hours beginning..."
 sleepTime="$((RANDOM % 23))h"
-echo $sleepTime >> sleepTime.log
+echo "sleepTime:" $sleepTime", starting @:" $(date) >> sleepTime.log
 sleep "$sleepTime"
 
 # main
