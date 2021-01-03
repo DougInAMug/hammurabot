@@ -3,7 +3,7 @@
 # post at random times in the day, to diversify exposure
 echo "random sleep for up to 23 hours beginning..."
 sleepTime="$((RANDOM % 23))h"
-echo -n "START: $(date +"%m-%d %T")    SLEEP: $sleepTime    " >> log
+echo -n "START: $(date +"%Y-%m-%d %T")    SLEEP: $sleepTime    " >> log
 sleep "$sleepTime"
 
 # main
@@ -59,4 +59,4 @@ else
 fi
 
 # log date & time of posts
-echo "POST: $(date +"%m-%d %T")" >> log
+echo "POST: $(date +"%Y-%m-%d %T")" >> log
