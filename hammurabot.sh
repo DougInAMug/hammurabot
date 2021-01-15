@@ -7,6 +7,13 @@ sleepTime="$((RANDOM % 23))h"
 echo -n "START: $(date +"%Y-%m-%d %T")    SLEEP: $sleepTime    " >> log
 sleep "$sleepTime"
 
+# create lawCounter.log and set to 0 if not present
+if [ ! -f lawCounter.log ]
+then
+  touch lawCounter.log
+  echo "0" > lawCounter.log
+fi
+
 # main
 lastLaw=$(cat lawCounter.log)
 law=$((lastLaw + 1))
