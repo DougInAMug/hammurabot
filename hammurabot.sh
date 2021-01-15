@@ -3,6 +3,7 @@
 # post at random times in the day, to diversify exposure
 echo "random sleep for up to 23 hours beginning..."
 sleepTime="$((RANDOM % 23))h"
+# log script start and sleep times... because I still don't fully trust cron
 echo -n "START: $(date +"%Y-%m-%d %T")    SLEEP: $sleepTime    " >> log
 sleep "$sleepTime"
 
@@ -10,12 +11,15 @@ sleep "$sleepTime"
 lastLaw=$(cat lawCounter.log)
 law=$((lastLaw + 1))
 lawText=$(head codeOfHammurabi.txt -n $law | tail -n 1)
+
+# line smaller than one standard toot? Easy:
 if [ "${#lawText}" -lt 475 ]; then
   echo "$lawText" > toot1
   toot post < toot1
   rm toot1
+# line longer than a toot? Here we go...
 else
-  # here-string array construction
+  # here-string array construction https://tldp.org/LDP/abs/html/x17837.html in order to be POSIX compliant
   IFS=" " read -r -a lawTextArray <<< "$lawText"
   arrayCounter=0
   remainingChars=$(printf "%s " "${lawTextArray[@]}" | wc -m)
