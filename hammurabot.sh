@@ -4,8 +4,8 @@
 echo "random sleep for up to 23 hours beginning..."
 sleepTime="$((RANDOM % 23))h"
 # log script start and sleep times... because I still don't fully trust cron
-echo -n "START: $(date +"%Y-%m-%d %T")    SLEEP: $sleepTime    " >> log
-sleep "$sleepTime"
+echo -n "START: $(date +"%Y-%m-%d %T")	SLEEP: $sleepTime	" >> log
+#sleep "$sleepTime"
 
 # create lawCounter.log and set to 0 if not present
 if [ ! -f lawCounter.log ]
@@ -17,7 +17,7 @@ fi
 # main
 lastLaw=$(cat lawCounter.log)
 law=$((lastLaw + 1))
-echo -n "LAW: $law    " >> log
+echo -n "LAW: $law	" >> log
 lawText=$(head codeOfHammurabi.txt -n $law | tail -n 1)
 
 # line smaller than one standard toot? Easy:
