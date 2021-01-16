@@ -22,11 +22,14 @@ Text is locally included in `codeOfHammurabi.txt`, sourced from [Yale Law School
 # Clone this
 git clone git@gitlab.com:DougInAMug/hammurabot.git
 
-# Install the only dependency, [toot](https://toot.readthedocs.io/en/latest/) E.g.:
+# Install the only dependency, toot https://toot.readthedocs.io/en/latest/ e.g.:
 sudo apt install toot
 
 # Login to target account with toot
 toot login <your-account-url>
+
+# Check if working (tell me if not!)
+bash hammurabot.sh
 
 # Add cron job: 0 0 * * * cd <your-path-to>/hammurabot && bash hammurabot.sh
 crontab -e

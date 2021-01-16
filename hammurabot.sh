@@ -1,31 +1,31 @@
 #!/bin/bash
 
-# post at random times in the day, to diversify exposure
+# sleep randomly up to 23 hours day to diversify exposure & log
 echo "random sleep for up to 23 hours beginning..."
 sleepTime="$((RANDOM % 23))h"
-# log script start and sleep times... because I still don't fully trust cron
 echo -n "START: $(date +"%Y-%m-%d %T")	SLEEP: $sleepTime	" >> log
-#sleep "$sleepTime"
+sleep "$sleepTime"
 
-# create lawCounter.log and set to 0 if not present
+# create lawCounter.log and set to 0, if not present
 if [ ! -f lawCounter.log ]
 then
   touch lawCounter.log
   echo "0" > lawCounter.log
 fi
 
-# main
+# initialize todays law & log
 lastLaw=$(cat lawCounter.log)
 law=$((lastLaw + 1))
 echo -n "LAW: $law	" >> log
 lawText=$(head codeOfHammurabi.txt -n $law | tail -n 1)
 
-# line smaller than one standard toot? Easy:
+# for laws smaller than a standard toot
 if [ "${#lawText}" -lt 475 ]; then
   echo "$lawText" > toot1
   toot post < toot1
   rm toot1
-# line longer than a toot? Here we go...
+
+# for laws longer than a standard toot (threaded reply)
 else
   # here-string array construction https://tldp.org/LDP/abs/html/x17837.html in order to be POSIX compliant
   IFS=" " read -r -a lawTextArray <<< "$lawText"
@@ -50,7 +50,7 @@ else
   lastToot=$"toot"$tootCounter""
   touch $lastToot
   printf "%s " "${lawTextArray[@]}" > $lastToot
-
+  # use --no-color option to remove ANSI coloring (was issue on pi 2021-01-16)
   toot post --no-color < toot1 > lastPost.log
   postCounter=2
   while [ "$postCounter" -le "$tootCounter" ]; do
