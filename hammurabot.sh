@@ -17,6 +17,7 @@ fi
 # main
 lastLaw=$(cat lawCounter.log)
 law=$((lastLaw + 1))
+echo -n "LAW: $law    " >> log
 lawText=$(head codeOfHammurabi.txt -n $law | tail -n 1)
 
 # line smaller than one standard toot? Easy:
@@ -30,7 +31,7 @@ else
   IFS=" " read -r -a lawTextArray <<< "$lawText"
   arrayCounter=0
   remainingChars=$(printf "%s " "${lawTextArray[@]}" | wc -m)
-  tootCounter=1  
+  tootCounter=1
   while [ "$remainingChars" -gt 475 ]; do
     thisToot=$"toot"$tootCounter""
     touch $thisToot
