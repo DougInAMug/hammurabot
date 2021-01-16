@@ -43,21 +43,21 @@ else
       tootNextCycleLength=$((thisTootLength + ${#lawTextArray[arrayCounter]}))
     done
     echo -n "..." >> $thisToot
-    remainingChars=$(printf "%s " "${lawTextArray[@]}" | wc -m)    
+    remainingChars=$(printf "%s " "${lawTextArray[@]}" | wc -m)
     tootCounter=$((tootCounter + 1))
   done
   lastToot=$"toot"$tootCounter""
   touch $lastToot
   printf "%s " "${lawTextArray[@]}" > $lastToot
-  
-  toot post < toot1 > lastPost.log
+
+  toot post --no-color < toot1 > lastPost.log
   postCounter=2
   while [ "$postCounter" -le "$tootCounter" ]; do
     postNext=$"toot"$postCounter""
     lastPost=$(cat lastPost.log)
-    toot post -r "${lastPost//[!0-9]/}" -v unlisted < "$postNext" > lastPost.log
+    toot post --no-color -r "${lastPost//[!0-9]/}" -v unlisted < "$postNext" > lastPost.log
     postCounter=$((postCounter + 1))
-  done 
+  done
   rm toot*
   rm lastPost.log
 fi
